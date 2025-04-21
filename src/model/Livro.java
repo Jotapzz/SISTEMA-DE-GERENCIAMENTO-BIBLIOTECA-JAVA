@@ -8,19 +8,22 @@ public class Livro {
 
 
     public void emprestar(){
-        //se o livro estiver disponivel
-        if(isDisponivel()){
-            System.out.println("Livro emprestado");
-            setDisponivel(false);
+        //se o livro não tiver disponivel
+        if(!isDisponivel()) {
+            System.out.println("Livro indisponível");
+            return;
         }
+        setDisponivel(false); //se tiver disponivel torna indisponivel
+
     }
 
     public void devolver(){
         //se o livro não estiver disponivel
-        if (!isDisponivel()){
-            System.out.println("Livro devolvido");
-            setDisponivel(true);
+        if (isDisponivel()) {
+            System.out.println("O Livro não pode ser devolvido pois está Disponivel");
+            return;
         }
+        setDisponivel(true);
     }
 
     //Metodo Construtor

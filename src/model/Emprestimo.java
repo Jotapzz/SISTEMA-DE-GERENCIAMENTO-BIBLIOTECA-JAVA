@@ -8,7 +8,7 @@ public class Emprestimo {
     private String dataEmprestimo;
     private String dataDevolucao;
 
-
+    //Metodo Construtor
     public Emprestimo(Livro livro, Usuario usuario) {
         //Atributos
         this.livro = livro;

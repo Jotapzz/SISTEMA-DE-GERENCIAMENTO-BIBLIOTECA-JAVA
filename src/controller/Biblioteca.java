@@ -3,7 +3,6 @@ package controller;
 import model.Emprestimo;
 import model.Livro;
 import model.Usuario;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,11 +13,7 @@ public class Biblioteca {
     private List<Emprestimo> emprestimos;
 
 
-
-
-
-
-
+    //Metodo Construtor
     public Biblioteca() {
         this.livros = new ArrayList<>();
         this.usuarios = new ArrayList<>();
@@ -26,7 +21,7 @@ public class Biblioteca {
     }
 
 
-
+    //Metodos de Cadastrar os livros e o cadastro do Usuario
     public void cadastrarLivro(Livro livro) {
         getLivros().add(livro);
     }
@@ -35,6 +30,8 @@ public class Biblioteca {
         getUsuarios().add(usuario);
     }
 
+
+    //Metodo de Buscar o titulo do Livro Disponível
     public Livro buscarLivro(String titulo) {
         for (Livro livro : livros) {
             if (livro.getTitulo().equalsIgnoreCase(titulo)) {
@@ -44,6 +41,7 @@ public class Biblioteca {
         return null;
     }
 
+    //Metodo de Buscar matrícula do usuário disponível
     public Usuario buscarUsuario(String login) {
         for (Usuario usuario : usuarios) {
             if(usuario.getMatricula().equalsIgnoreCase(login)) {
@@ -54,43 +52,35 @@ public class Biblioteca {
     }
 
 
-
-
-
-
-
-
-    public Livro listarLivrosDisponiveis() {
+    //Metodo que Lista todos os Livros Disponível
+    public void listarLivrosDisponiveis() {
 
         for (Livro livro : getLivros()) {
             if (livro.isDisponivel()) {
-                return livro;
+                System.out.printf("Livro: %s  Autor: %s\n",livro.getTitulo(),livro.getAutor());
             }
+
         }
-        return null;
+
     }
 
+    //Metodo que empresta o Livro
     public void emprestarLivro(Livro titulo, Usuario matricula) {
-        if (!titulo.isDisponivel()) {
-            System.out.println("Livro indisponível. ");
-            return;
-        }
+        titulo.emprestar(); //Pega o Metodo da Classe Livro
 
-        titulo.setDisponivel(false);
+
         Emprestimo emprestimo = new Emprestimo(titulo, matricula);
 
         System.out.printf("O livro %s foi emprestado para o usuário %s com sucesso!\n", titulo.getTitulo(), matricula.getNome());
     }
 
 
-    public void devolverLivro(Livro titulo) {
-        if (!titulo.isDisponivel()) {
-            System.out.println("Livro Devolvido com Sucesso!");
-        }
-        else {
-            System.out.println("O Livro já foi Devolvido!");
-        }
+    public void devolverLivro(Livro titulo, Usuario matricula) {
+        titulo.devolver(); //Usa o metodo da Classe Livro
+
+        System.out.printf("O livro %s foi devolvido pelo usuário %s\n", titulo.getTitulo(), matricula.getNome());
     }
+
 
     public void listarLivrosEmprestados() {
         for (Livro livro : getLivros()) {
@@ -101,15 +91,7 @@ public class Biblioteca {
     }
 
 
-
-
-
-
-
-
-
-
-
+    
     //Metodos Gets e Sets
     public List<Livro> getLivros() {
         return livros;

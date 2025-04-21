@@ -28,7 +28,6 @@ public class Main {
 
                 switch (opcao) {
                     case 1:
-                        //Pega o dados do livro e armazena na variavel
                         System.out.print("Nome: ");
                         String nome = input.next();
                         System.out.print("Email: ");
@@ -36,7 +35,7 @@ public class Main {
                         System.out.print("Matricula: ");
                         String matricula = input.next();
 
-                        //Instancia usuario pela Classe Usuario e coloca os parâmetros que o usuário digitou
+
                         Usuario usuario = new Usuario(nome, email, matricula);
                         biblioteca.cadastrarUsuario(usuario);
                         System.out.println("Cadastrado com sucesso!");
@@ -44,22 +43,24 @@ public class Main {
 
                     case 2:
                         //Pega o dados do livro e armazena na variavel
-                        System.out.print("Titulo: ");
-                        String titulo = input.next();
                         input.nextLine();
+                        System.out.print("Titulo: ");
+                        String titulo = input.nextLine();
+
                         System.out.print("Autor: ");
                         String autor = input.nextLine();
 
                         //Instancia livro pela Classe Livro e coloca os parâmetros que o usuário digitou
                         Livro livro = new Livro(titulo, autor);
-                        biblioteca.cadastrarLivro(livro); //chama a função e coloca o objeto livro como parâmetro
+                        biblioteca.cadastrarLivro(livro); //cha
                         break;
 
                     case 3:
                         //cria uma variavel com o título e matricula do usuário
-                        System.out.print("Título do  Livro: ");
-                        String tituloLivro = input.next();
                         input.nextLine();
+                        System.out.print("Título do  Livro: ");
+                        String tituloLivro = input.nextLine();
+
                         System.out.print("Matrícula do usuário: ");
                         String matriculaLivro = input.nextLine();
 
@@ -73,23 +74,59 @@ public class Main {
                         if (livroEmprestar != null && usuarioEmprestar != null) {
                             biblioteca.emprestarLivro(livroEmprestar, usuarioEmprestar);
                         } else if (livroEmprestar == null) {
-                            System.out.println("O Livro não encontrado.");
+                            System.out.println("O Livro não foi encontrado.");
 
                         } else if (usuarioEmprestar == null) {
                             System.out.println("A matrícula não foi encontrada.");
 
                         }
                         break;
+
+                    case 4:
+                        //Pega os dados do livro e da matrícula do usuário que quer devolver
+                        input.nextLine();
+                        System.out.print("Título do  Livro: ");
+                        String tituloDevolver = input.nextLine();
+
+                        System.out.print("Matrícula do usuário: ");
+                        String matriculaDevolver = input.nextLine();
+
+                        //Verifica se o Livro e a matrícula existem
+                        Livro devolvertitulo = biblioteca.buscarLivro(tituloDevolver);
+                        Usuario matriculadoDevolver = biblioteca.buscarUsuario(matriculaDevolver);
+
+                        //Verifica se existe e se o usuário não está disponivel
+                        if (devolvertitulo != null && matriculaDevolver != null) {
+                            biblioteca.devolverLivro(devolvertitulo, matriculadoDevolver);
+                        } else if (devolvertitulo == null) {
+                            System.out.println("O livro não foi encontrado.");
+                        } else {
+                            System.out.println("A matrícula do usuário não foi encontrado.");
+
+                        }
+                        break;
+
+
+                    case 5:
+                        System.out.println("==== LISTA DE LIVROS DISPONIVEL ====");
+                        biblioteca.listarLivrosDisponiveis();
+                        break;
+
+
+                    case 6:
+                        return;
+
+                    default:
+                        System.out.println("Escolha uma opção Correta!");
+                        break;
+
                 }
 
+            } catch (Exception e) {
 
-
-            } catch (NullPointerException e) {
                 System.out.println("Erro: Digite um Valor Correto!");
-                return;
+                break;
             }
-
-
 
         }
     }

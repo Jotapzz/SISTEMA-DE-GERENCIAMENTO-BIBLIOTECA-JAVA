@@ -6,6 +6,7 @@ public class Usuario {
     private String email;
     private String matricula;
 
+    //Metodo Construtor
     public Usuario(String nome, String email, String matricula) {
         this.nome = nome;
         this.email = email;
